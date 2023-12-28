@@ -1,5 +1,7 @@
 FROM apache/airflow:2.7.1-python3.9
+
 USER root
+COPY ../logs /logs
 
 # Install OpenJDK-11
 RUN apt update && \
@@ -7,6 +9,9 @@ RUN apt update && \
     apt-get install -y ant && \
     apt-get install -y procps && \
     apt-get clean;
+
+# Set Permissions
+RUN chmod 777 /logs
 
 # Set JAVA_HOME
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
